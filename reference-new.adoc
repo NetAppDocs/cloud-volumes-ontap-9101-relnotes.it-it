@@ -1,0 +1,172 @@
+---
+sidebar: sidebar 
+permalink: reference-new.html 
+keywords: new features, release notes, enhancements 
+summary: Cloud Volumes ONTAP 9.10.1 include diverse nuove funzionalità e miglioramenti. 
+---
+= Novità di Cloud Volumes ONTAP 9.10.1
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Volumes ONTAP 9.10.1 include diverse nuove funzionalità e miglioramenti.
+
+Ulteriori funzionalità e miglioramenti sono stati introdotti anche nelle ultime versioni di BlueXP. Vedere https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/whats-new.html["Note di rilascio di BlueXP"^] per ulteriori informazioni.
+
+
+
+== Istanze c4, m4 e r4 non più supportate (28 ottobre 2022)
+
+In AWS, i tipi di istanze c4, m4 e r4 EC2 non sono più supportati con Cloud Volumes ONTAP. Se si dispone di un sistema in esecuzione su un tipo di istanza c4, m4 o r4, è necessario passare a un tipo di istanza nella famiglia di istanze c5, m5 o r5.
+
+link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-change-ec2-instance.html["Scopri come modificare il tipo di istanza EC2 per Cloud Volumes ONTAP"^].
+
+Fare riferimento a. link:https://mysupport.netapp.com/info/communications/ECMLP2880231.html["Supporto NetApp"^] per ulteriori informazioni sulla fine della disponibilità e sul supporto per questi tipi di istanze.
+
+
+
+== 9.10.1 P6 (13 luglio 2022)
+
+La patch 9.10.1 P6 è ora disponibile per Cloud Volumes ONTAP in Microsoft Azure se si dispone di un connettore con versione 3.9.19 o successiva. Cloud Manager ti chiederà di aggiornare i sistemi esistenti a questa release di patch.
+
+https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.10.1P6["Visualizza l'elenco dei bug corretti nella patch P6"^] (Accesso al NetApp Support Site richiesto).
+
+
+
+== 9.10.1 P3 (15 maggio 2022)
+
+La patch 9.10.1 P3 è ora disponibile per Cloud Volumes ONTAP in Microsoft Azure se si dispone di un connettore con versione 3.9.13 o successiva. BlueXP richiederà di aggiornare i sistemi esistenti a questa versione di patch.
+
+https://mysupport.netapp.com/site/products/all/details/cloud-volumes-ontap/downloads-tab/download/62632/9.10.1P3["Visualizzare l'elenco dei bug corretti nella patch P3"^] (Accesso al NetApp Support Site richiesto).
+
+
+
+== Aggiornamento sulle licenze (9 febbraio 2022)
+
+Abbiamo introdotto le seguenti modifiche al mercato per Cloud Volumes ONTAP:
+
+* Il pacchetto Essentials e il pacchetto Professional sono ora disponibili nei mercati AWS e Google Cloud.
++
+Questi metodi di addebito in base alla capacità ti consentono di pagare entro l'ora o di acquistare un contratto annuale direttamente dal tuo cloud provider. È comunque possibile acquistare una licenza per capacità direttamente da NetApp.
+
++
+Se disponi già di un abbonamento a un cloud marketplace, sarai automaticamente iscritto a queste nuove offerte. È possibile scegliere la ricarica in base alla capacità quando si implementa un nuovo ambiente di lavoro Cloud Volumes ONTAP.
+
++
+Se sei un nuovo cliente, BlueXP ti chiederà di iscriverti quando crei un nuovo ambiente di lavoro.
+
+* Le licenze per nodo tramite i mercati AWS e Google Cloud sono obsolete e non più disponibili per i nuovi abbonati. Sono inclusi i contratti annuali e gli abbonamenti orari (Explore, Standard e Premium).
++
+Questo metodo di addebito è ancora disponibile per i clienti esistenti che dispongono di un abbonamento attivo.
+
+
+
+link:concept-licensing.html["Scopri di più sulle opzioni di licenza per Cloud Volumes ONTAP"].
+
+
+
+== 9.10.1 GA (31 gennaio 2022)
+
+È ora disponibile la versione General Availability (GA) di Cloud Volumes ONTAP 9.10.1. La release GA include correzioni di bug.
+
+BlueXP richiede di aggiornare i sistemi esistenti che eseguono una delle seguenti versioni: 9.10.1 RC1, 9.10.0 o 9.9.1.
+
+
+
+== Supporto per più tipi di macchine virtuali (2 gennaio 2021)
+
+Come parte di BlueXP 3.9.14, Cloud Volumes ONTAP è ora supportato con i seguenti tipi di macchine virtuali in Microsoft Azure, a partire dalla versione 9.10.1:
+
+* E4ds_v4
+* E8ds_v4
+* E32ds_v4
+* E48ds_v4
+
+
+Accedere alla link:reference-configs-azure.html["pagina configurazioni supportate"] per ulteriori dettagli.
+
+
+
+== 9.10.1 RC1 (28 novembre 2021)
+
+Cloud Volumes ONTAP 9.10.1 Release Candidate 1 è ora disponibile in AWS, Azure e Google Cloud. Questa versione include le seguenti nuove funzioni e miglioramenti.
+
+
+
+=== Miglioramenti HA in Microsoft Azure
+
+* Abbiamo ridotto il tempo di failover non pianificato per le coppie Cloud Volumes ONTAP ha in esecuzione in Microsoft Azure.
+* NFSv4 è ora supportato.
+
+
+Per rendere disponibili questi miglioramenti a Cloud Volumes ONTAP, devi attivare una funzionalità per il tuo abbonamento Azure. Un utente di Azure che dispone dei privilegi di "proprietario" può attivare la funzione dalla CLI di Azure:
+
+[source, azurecli]
+----
+az account set -s AZURE_SUBSCRIPTION_NAME_OR_ID
+az feature register --name EnableHighAvailabilityMode --namespace Microsoft.Network
+az provider register -n Microsoft.Network
+----
+BlueXP ti chiederà di fornire questi dettagli in un messaggio azione richiesta per i sistemi Cloud Volumes ONTAP 9.10.1 in cui la funzionalità deve essere attivata con un abbonamento Azure.
+
+Tenere presente quanto segue:
+
+* Non ci sono problemi con l'alta disponibilità della tua coppia Cloud Volumes ONTAP ha. Questa funzionalità di Azure funziona in collaborazione con ONTAP per ridurre il tempo di interruzione dell'applicazione osservato dal client per i protocolli NFS che derivano da eventi di failover non pianificati.
+* L'attivazione di questa funzione non comporta interruzioni per le coppie Cloud Volumes ONTAP ha.
+* L'attivazione di questa funzione sul tuo abbonamento Azure non causerà problemi ad altre macchine virtuali.
+
+
+
+
+=== Miglioramenti della sicurezza
+
+Abbiamo migliorato la sicurezza della creazione di immagini ONTAP e la sicurezza del disco di boot Cloud Volumes ONTAP.
+
+
+
+=== Supporto per gli abbonamenti Keystone Flex
+
+Come parte della release Connector 3.9.13, è ora possibile utilizzare un abbonamento Keystone Flex con le coppie Cloud Volumes ONTAP ha. Un abbonamento Keystone Flex è un servizio basato su abbonamento pay-as-you-grow che offre un'esperienza di cloud ibrido perfetta per coloro che preferiscono i modelli di consumo OpEx a CapEx anticipate o al leasing.
+
+Un abbonamento Keystone Flex è supportato con tutte le nuove versioni di Cloud Volumes ONTAP che è possibile implementare da BlueXP.
+
+
+
+=== Gestione delle chiavi di crittografia
+
+La release ONTAP 9.10.1 include un miglioramento che consente di utilizzare il vault delle chiavi Azure o il servizio di gestione delle chiavi Google Cloud per proteggere le chiavi di crittografia ONTAP.
+
+https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/concept-security.html["Scopri di più sul supporto della crittografia per Cloud Volumes ONTAP"^].
+
+
+
+== Versione richiesta di BlueXP Connector
+
+BlueXP Connector deve eseguire la versione 3.9.13 o successiva per implementare nuovi sistemi Cloud Volumes ONTAP 9.10.1 e aggiornare i sistemi esistenti alla versione 9.10.1.
+
+
+TIP: Gli aggiornamenti automatici del connettore sono attivati per impostazione predefinita, pertanto dovrebbe essere in esecuzione la versione più recente.
+
+
+
+== Note sull'aggiornamento
+
+* Gli aggiornamenti di Cloud Volumes ONTAP devono essere completati da BlueXP. Non aggiornare Cloud Volumes ONTAP utilizzando Gestione di sistema o l'interfaccia CLI. In questo modo si può influire sulla stabilità del sistema.
+* È possibile eseguire l'aggiornamento a Cloud Volumes ONTAP 9.10.1 dalla release 9.10.0 e dalla release 9.9.1. BlueXP richiederà di aggiornare i sistemi Cloud Volumes ONTAP idonei alla versione 9.10.1.
++
+http://docs.netapp.com/us-en/cloud-manager-cloud-volumes-ontap/task-updating-ontap-cloud.html["Scopri come eseguire l'aggiornamento quando BlueXP ti notifica"^].
+
+* L'aggiornamento di un sistema a nodo singolo porta il sistema offline per un massimo di 25 minuti, durante i quali l'i/o viene interrotto.
+* L'aggiornamento di una coppia ha è senza interruzioni e l'i/o è ininterrotto. Durante questo processo di aggiornamento senza interruzioni, ogni nodo viene aggiornato in tandem per continuare a fornire i/o ai client.
+
+
+
+
+=== DS3_v2
+
+A partire dalla versione 9.9.1, il tipo di macchina virtuale DS3_v2 non è più supportato dai sistemi Cloud Volumes ONTAP nuovi ed esistenti. Se si dispone di un sistema esistente in esecuzione su questo tipo di macchina virtuale, è necessario modificare i tipi di macchina virtuale prima di eseguire l'aggiornamento alla versione 9.10.1.
